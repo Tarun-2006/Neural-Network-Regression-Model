@@ -65,6 +65,28 @@ class NeuralNet(nn.Module):
     x=self.relu(self.fc2(x))
     x=self.fc3(x)
     return x
+
+# Initialize the Model, Loss Function, and Optimizer
+ai_brain = NeuralNet()
+criterion= nn.MSELoss()
+optimizer= optim.RMSprop(ai_brain.parameters() ,lr=0.001)
+
+
+# Name:Tarun S
+# Register Number:212223040226
+def train_model(ai_brain, X_train, y_train, criterion, optimizer, epochs=3000):
+    # Write your code here
+    for epoch in range(epochs):
+        optimizer.zero_grad()
+        outputs = ai_brain(X_train)
+        loss = criterion(outputs, y_train)
+        loss.backward()
+        optimizer.step()
+
+        ai_brain.history['Loss'].append(loss.item())
+        if epoch % 200 == 0:
+            print(f'Epoch [{epoch}/{epochs}], Loss: {loss.item():.6f}')
+
 ```
 ## Dataset Information
 
